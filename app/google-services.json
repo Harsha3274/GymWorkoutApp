@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "833842697829",
+    "project_id": "gymapp-c9fb6",
+    "storage_bucket": "gymapp-c9fb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833842697829:android:6aafc5d44413117788d88c",
+        "android_client_info": {
+          "package_name": "com.wodo.gymapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPvN6p1zrbOB79XgsSYyuzAMhuV0SPtUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

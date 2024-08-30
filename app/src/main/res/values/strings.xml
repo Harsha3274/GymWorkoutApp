@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GymApp</string>
+    <string name="workout_app">Workout</string>
+    <string name="default_web_client_id">833842697829-c33ic32qu7t7gc04b7cojkb2smm1bs4p.apps.googleusercontent.com</string>
+</resources>
