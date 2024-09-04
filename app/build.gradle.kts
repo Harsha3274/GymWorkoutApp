@@ -73,9 +73,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
 
     // Kotlin Extensions for Activity
-    implementation ("androidx.activity:activity-ktx:1.9.1")
+    implementation("androidx.activity:activity-ktx:1.9.1")
 
     // Kotlin Extensions for Fragment (if needed)
-    implementation ("androidx.fragment:fragment-ktx:1.8.2")
+    implementation("androidx.fragment:fragment-ktx:1.8.2")
+
+    implementation("com.google.firebase:firebase-storage:21.0.0") // For image loading
+    implementation("com.squareup.picasso:picasso:2.71828")  // For image loading
 
 }

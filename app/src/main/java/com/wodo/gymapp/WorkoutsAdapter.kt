@@ -31,7 +31,7 @@ class WorkoutsAdapter(
             val intent = Intent(context, WorkoutDetailActivity::class.java).apply {
                 putExtra("WORKOUT_NAME", workout.name)
                 putExtra("WORKOUT_DESCRIPTION", "Description of ${workout.name} goes here...")
-                putExtra("WORKOUT_VIDEO", R.raw.sample_video)  // Assuming you have a video for each workout
+//                putExtra("WORKOUT_VIDEO", R.raw.sample_video)  // Assuming you have a video for each workout
             }
             context.startActivity(intent)
         }

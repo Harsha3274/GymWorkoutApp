@@ -1,59 +1,58 @@
 package com.wodo.gymapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.wodo.gymapp.model.Equipment
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var equipmentAdapter: EquipmentAdapter
+    private val firestore by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val equipmentList = listOf(
-            Equipment("Treadmill", R.drawable.treadmill),
-            Equipment("Dumbbells", R.drawable.dumbell),
-            Equipment("Kettle bell", R.drawable.kettlebell),
-            Equipment("Barbell", R.drawable.barbell),
-            Equipment("Battle Rope", R.drawable.battlerope),
-            Equipment("Leg Press", R.drawable.legpress),
-            Equipment("Row", R.drawable.row),
-            Equipment("Weight Training Bench", R.drawable.weighttrainingbench),
-        )
-
-        // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this, 3) // 3 columns
 
-        // Initialize EquipmentAdapter with the equipment list and handle item selections
-        equipmentAdapter = EquipmentAdapter(equipmentList) { selectedEquipment ->
-            // This callback is triggered when items are selected or deselected
-            // You can update the UI or handle further actions based on the selected items
-
-            // For example, enable/disable the "Next" button based on the selection
+        equipmentAdapter = EquipmentAdapter(emptyList()) { selectedEquipment ->
             findViewById<Button>(R.id.nextButton).isEnabled = selectedEquipment.isNotEmpty()
         }
 
         recyclerView.adapter = equipmentAdapter
 
-        // Handle "Next" button click
-        findViewById<Button>(R.id.nextButton).setOnClickListener {
-            // Get the list of selected equipment
-            val selectedEquipment = equipmentAdapter.getSelectedItems()
+        fetchEquipmentFromFirestore()
 
-            // Prepare the intent to navigate to WorkoutLevelActivity
+        findViewById<Button>(R.id.nextButton).setOnClickListener {
+            val selectedEquipment = equipmentAdapter.getSelectedItems()
             val intent = Intent(this, WorkoutLevelActivity::class.java)
             intent.putExtra("SELECTED_EQUIPMENT", ArrayList(selectedEquipment.map { it.name }))
-
-            // Start the next activity
             startActivity(intent)
         }
+    }
+
+    private fun fetchEquipmentFromFirestore() {
+        firestore.collection("gymEquipment")
+            .get()
+            .addOnSuccessListener { result ->
+                val equipmentList = mutableListOf<Equipment>()
+                for (document in result) {
+                    val name = document.getString("name") ?: ""
+                    val imageUrl = document.getString("imageUrl") ?: ""
+                    equipmentList.add(Equipment(name, imageUrl))
+                }
+                equipmentAdapter.updateEquipmentList(equipmentList)
+            }
+            .addOnFailureListener { exception ->
+                Log.w("HomeActivity", "Error getting documents: ", exception)
+            }
     }
 }
