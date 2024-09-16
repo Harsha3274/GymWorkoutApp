@@ -26,14 +26,18 @@ class WorkoutsAdapter(
         holder.workoutName.text = workout.name
         holder.workoutImage.setImageResource(workout.imageResId)
 
+        // Handle card click for full card
         holder.workoutCard.setOnClickListener {
-            // Prepare an intent to navigate to WorkoutDetailActivity
             val intent = Intent(context, WorkoutDetailActivity::class.java).apply {
                 putExtra("WORKOUT_NAME", workout.name)
                 putExtra("WORKOUT_DESCRIPTION", "Description of ${workout.name} goes here...")
-//                putExtra("WORKOUT_VIDEO", R.raw.sample_video)  // Assuming you have a video for each workout
             }
             context.startActivity(intent)
+        }
+
+        // Handle dropdown icon click
+        holder.dropdownIcon.setOnClickListener {
+            // Implement dropdown action here (e.g., show options or details)
         }
     }
 
@@ -41,9 +45,12 @@ class WorkoutsAdapter(
         return workoutList.size
     }
 
+    // Move WorkoutViewHolder class inside the adapter
     class WorkoutViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val workoutName: TextView = itemView.findViewById(R.id.exerciseName)
-        val workoutImage: ImageView = itemView.findViewById(R.id.exerciseImage)
-        val workoutCard: CardView = itemView.findViewById(R.id.workoutCard)
+        val workoutName: TextView = itemView.findViewById(R.id.exerciseName)  // TextView for workout name
+        val workoutImage: ImageView = itemView.findViewById(R.id.exerciseImage)  // ImageView for workout image
+        val workoutCard: CardView = itemView.findViewById(R.id.workoutCard)  // CardView for workout card
+        val dropdownIcon: ImageView = itemView.findViewById(R.id.exerciseIcon)  // ImageView for dropdown icon
     }
+
 }

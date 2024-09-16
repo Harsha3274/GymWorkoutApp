@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="4dp">
+    card_view:cardElevation="4dp"
+    android:backgroundTint="@color/core_dark_grey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,9 +29,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="16sp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:layout_marginTop="8dp"
             android:text="Equipment Name" />
+
+        <ImageView
+            android:id="@+id/checkmarkImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

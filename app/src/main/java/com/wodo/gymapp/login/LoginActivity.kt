@@ -2,6 +2,7 @@ package com.wodo.gymapp.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -64,15 +65,25 @@ class LoginActivity : AppCompatActivity() {
             signInGoogle()
         }
 
-        // Observe user LiveData
+        // After login is successful and user object is available (inside your observer)
         viewModel.userLiveData.observe(this, Observer { user ->
             if (user != null) {
-                Toast.makeText(this, "Login Successful, Welcome ${user.username}", Toast.LENGTH_SHORT).show()
+                val username = user.username // Assuming 'user' has a 'username' field
+
+                // Save the username in SharedPreferences
+                val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("username", username)
+                editor.apply() // Save the username to SharedPreferences
+
+                // Toast message and navigate to HomeActivity
+                Toast.makeText(this, "Login Successful, Welcome $username", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
-                finish() // Close LoginActivity
+                finish()
             }
         })
+
 
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditTextLogin.text.toString().trim()
@@ -88,6 +99,18 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Show ProgressBar
+            binding.loginProgressBar.visibility = View.VISIBLE
+
+            // Login user
+            viewModel.loginUser(email, password, onSuccess = {
+                binding.loginProgressBar.visibility = View.GONE  // Hide ProgressBar on success
+                // Handle success
+            }, onFailure = { exception ->
+                binding.loginProgressBar.visibility = View.GONE  // Hide ProgressBar on failure
+                Toast.makeText(this, "Login Failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+            })
+
             // Login user and fetch user data
             viewModel.loginUser(email, password, onSuccess = {
                 // onSuccess is handled by LiveData observer
@@ -96,7 +119,6 @@ class LoginActivity : AppCompatActivity() {
             })
         }
 
-        // Navigate to SignupActivity when clicking "Sign Up"
         binding.SignupText.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
@@ -123,9 +145,15 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val email = account.email ?: "No Email"
-                val username = account.displayName ?: "No Name"
+                val username = account.displayName ?: "No Name"  // Fetch display name from Google Account
 
+                // Save the username in SharedPreferences
+                val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("username", username)
+                editor.apply()
+
+                // Navigate to HomeActivity
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()

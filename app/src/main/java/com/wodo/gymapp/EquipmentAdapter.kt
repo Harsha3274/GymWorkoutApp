@@ -18,9 +18,10 @@ class EquipmentAdapter(
     private val selectedItems = mutableSetOf<Equipment>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EquipmentViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_equipment, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.equipment_item, parent, false)
         return EquipmentViewHolder(view)
     }
+
 
     override fun onBindViewHolder(holder: EquipmentViewHolder, position: Int) {
         val equipment = equipmentList[position]
@@ -62,11 +63,12 @@ class EquipmentAdapter(
         private fun updateSelectionState(equipment: Equipment) {
             if (selectedItems.contains(equipment)) {
                 checkmarkImage.visibility = View.VISIBLE
-                cardView.setCardBackgroundColor(itemView.context.getColor(android.R.color.holo_blue_light))
+                cardView.setCardBackgroundColor(itemView.context.getColor(android.R.color.holo_orange_light))
             } else {
                 checkmarkImage.visibility = View.GONE
                 cardView.setCardBackgroundColor(itemView.context.getColor(android.R.color.white))
             }
         }
+
     }
 }

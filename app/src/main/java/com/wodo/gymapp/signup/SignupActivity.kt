@@ -2,6 +2,7 @@ package com.wodo.gymapp.signup
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -51,7 +52,6 @@ class SignupActivity : AppCompatActivity() {
             val email = binding.emailETSignup.text.toString().trim()
             val password = binding.passwordETSignup.text.toString().trim()
 
-            // Validation checks
             if (!ValidationUtils.isUsernameValid(username)) {
                 binding.usernameETSignup.error = "Invalid username"
                 return@setOnClickListener
@@ -69,7 +69,9 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Create user with Firebase Authentication
+            // Show ProgressBar
+            binding.signupProgressBar.visibility = View.VISIBLE
+
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -80,14 +82,17 @@ class SignupActivity : AppCompatActivity() {
                         if (userId != null) {
                             db.collection("users").document(userId).set(user)
                                 .addOnSuccessListener {
+                                    binding.signupProgressBar.visibility = View.GONE  // Hide ProgressBar on success
                                     viewModel.setSignupSuccess(true)
                                 }
                                 .addOnFailureListener { e ->
+                                    binding.signupProgressBar.visibility = View.GONE  // Hide ProgressBar on failure
                                     viewModel.setSignupSuccess(false)
                                     Toast.makeText(this, "Failed to store user data: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
                         }
                     } else {
+                        binding.signupProgressBar.visibility = View.GONE  // Hide ProgressBar on failure
                         viewModel.setSignupSuccess(false)
                         Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }

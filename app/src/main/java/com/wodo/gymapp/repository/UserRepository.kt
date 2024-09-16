@@ -1,10 +1,10 @@
 package com.wodo.gymapp.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wodo.gymapp.model.User
+import java.util.Date
 
 class UserRepository {
     private val auth = FirebaseAuth.getInstance()
@@ -13,22 +13,30 @@ class UserRepository {
     // LiveData to expose user data
     val userLiveData = MutableLiveData<User?>()
 
-    // Method to handle user registration
     fun registerUser(user: User, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         auth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val userId = auth.currentUser?.uid ?: return@addOnCompleteListener
-                    db.collection("users").document(userId).set(user)
-                        .addOnSuccessListener { onSuccess() }
-                        .addOnFailureListener { exception -> onFailure(exception) }
+                    val userWithTimestamp = user.copy(
+                        status = "approved",
+                        create_on = Date()
+                    )
+
+                    // Save user data in Firestore
+                    db.collection("users").document(userId).set(userWithTimestamp)
+                        .addOnSuccessListener {
+                            onSuccess()
+                        }
+                        .addOnFailureListener { exception ->
+                            onFailure(exception)
+                        }
                 } else {
                     onFailure(task.exception ?: Exception("Registration failed"))
-                }
+                } 
             }
     }
 
-    // Method to handle user login
     fun loginUser(email: String, password: String, onSuccess: (User?) -> Unit, onFailure: (Exception) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -44,7 +52,9 @@ class UserRepository {
                                     onFailure(Exception("User data not found"))
                                 }
                             }
-                            .addOnFailureListener { exception -> onFailure(exception) }
+                            .addOnFailureListener { exception ->
+                                onFailure(exception)
+                            }
                     } else {
                         onFailure(Exception("User ID not found"))
                     }

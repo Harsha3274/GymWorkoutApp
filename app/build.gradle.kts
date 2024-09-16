@@ -81,4 +81,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage:21.0.0") // For image loading
     implementation("com.squareup.picasso:picasso:2.71828")  // For image loading
 
+    implementation ("com.google.android.material:material:1.12.0")
+    implementation ("androidx.viewpager2:viewpager2:1.1.0")
+
 }
