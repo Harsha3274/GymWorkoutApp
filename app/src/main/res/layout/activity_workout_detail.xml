@@ -8,7 +8,6 @@
     android:background="@color/black"
     tools:context=".WorkoutDetailActivity">
 
-    <!-- ScrollView for vertical scrolling -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -145,9 +144,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/nav_background"
         app:itemIconTint="@drawable/bottom_nav_color"
-        app:itemTextColor="@drawable/bottom_nav_color"
-        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_menu"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

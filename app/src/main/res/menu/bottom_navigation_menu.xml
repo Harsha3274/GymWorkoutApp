@@ -3,17 +3,17 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="" />
     <item
         android:id="@+id/nav_gym_equipment"
         android:icon="@drawable/dumbbell_icon"
-        android:title="Equipment" />
+        android:title="" />
     <item
         android:id="@+id/nav_reviews"
         android:icon="@drawable/popular"
-        android:title="Reviews" />
+        android:title="" />
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/settings"
-        android:title="Settings" />
+        android:title="" />
 </menu>

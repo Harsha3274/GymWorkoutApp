@@ -1,5 +1,6 @@
 package com.wodo.gymapp.login
 
+import com.wodo.gymapp.HomeActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -19,7 +20,6 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import com.wodo.gymapp.HomeActivity
 import com.wodo.gymapp.R
 import com.wodo.gymapp.databinding.ActivityLoginBinding
 import com.wodo.gymapp.signup.SignupActivity
@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                 editor.putString("username", username)
                 editor.apply() // Save the username to SharedPreferences
 
-                // Toast message and navigate to HomeActivity
+                // Toast message and navigate to com.wodo.gymapp.HomeActivity
                 Toast.makeText(this, "Login Successful, Welcome $username", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
@@ -153,7 +153,7 @@ class LoginActivity : AppCompatActivity() {
                 editor.putString("username", username)
                 editor.apply()
 
-                // Navigate to HomeActivity
+                // Navigate to com.wodo.gymapp.HomeActivity
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -162,7 +162,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 
     override fun onStart() {
         super.onStart()

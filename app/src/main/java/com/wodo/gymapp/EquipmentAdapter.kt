@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 import com.wodo.gymapp.model.Equipment
 
 class EquipmentAdapter(
-    private var equipmentList: List<Equipment>,
+    var equipmentList: List<Equipment>,
     private val onSelectionChanged: (List<Equipment>) -> Unit
 ) : RecyclerView.Adapter<EquipmentAdapter.EquipmentViewHolder>() {
 
@@ -21,7 +21,6 @@ class EquipmentAdapter(
         val view = LayoutInflater.from(parent.context).inflate(R.layout.equipment_item, parent, false)
         return EquipmentViewHolder(view)
     }
-
 
     override fun onBindViewHolder(holder: EquipmentViewHolder, position: Int) {
         val equipment = equipmentList[position]
@@ -35,6 +34,15 @@ class EquipmentAdapter(
     fun updateEquipmentList(newEquipmentList: List<Equipment>) {
         equipmentList = newEquipmentList
         notifyDataSetChanged()
+    }
+
+    // Method to update selected equipment based on names from SharedPreferences
+    fun updateSelectedEquipmentByName(selectedEquipmentNames: Set<String>) {
+        val selectedEquipmentList = equipmentList.filter { it.name in selectedEquipmentNames }
+        selectedItems.clear()
+        selectedItems.addAll(selectedEquipmentList)
+        notifyDataSetChanged()
+        onSelectionChanged(selectedItems.toList())
     }
 
     inner class EquipmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -69,6 +77,5 @@ class EquipmentAdapter(
                 cardView.setCardBackgroundColor(itemView.context.getColor(android.R.color.white))
             }
         }
-
     }
 }
