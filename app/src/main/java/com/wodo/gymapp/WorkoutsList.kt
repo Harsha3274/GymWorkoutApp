@@ -96,4 +96,5 @@ class WorkoutsList : AppCompatActivity() {
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         NavigationUtils.setupBottomNavigation(this, bottomNavigation)
     }
+
 }

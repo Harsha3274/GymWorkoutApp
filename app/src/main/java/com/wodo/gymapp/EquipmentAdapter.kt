@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wodo.gymapp.model.Equipment
@@ -36,7 +37,6 @@ class EquipmentAdapter(
         notifyDataSetChanged()
     }
 
-    // Method to update selected equipment based on names from SharedPreferences
     fun updateSelectedEquipmentByName(selectedEquipmentNames: Set<String>) {
         val selectedEquipmentList = equipmentList.filter { it.name in selectedEquipmentNames }
         selectedItems.clear()
@@ -48,7 +48,6 @@ class EquipmentAdapter(
     inner class EquipmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val equipmentImage: ImageView = itemView.findViewById(R.id.equipmentImage)
         private val equipmentName: TextView = itemView.findViewById(R.id.equipmentName)
-        private val checkmarkImage: ImageView = itemView.findViewById(R.id.checkmarkImage)
         private val cardView: CardView = itemView as CardView
 
         fun bind(equipment: Equipment) {
@@ -69,13 +68,13 @@ class EquipmentAdapter(
         }
 
         private fun updateSelectionState(equipment: Equipment) {
+            cardView.isSelected = selectedItems.contains(equipment)
             if (selectedItems.contains(equipment)) {
-                checkmarkImage.visibility = View.VISIBLE
-                cardView.setCardBackgroundColor(itemView.context.getColor(android.R.color.holo_orange_light))
+                equipmentName.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.white))
             } else {
-                checkmarkImage.visibility = View.GONE
-                cardView.setCardBackgroundColor(itemView.context.getColor(android.R.color.white))
+                equipmentName.setTextColor(ContextCompat.getColor(itemView.context, R.color.lightWhite))
             }
         }
+
     }
 }

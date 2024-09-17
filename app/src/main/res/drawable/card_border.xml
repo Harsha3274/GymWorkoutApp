@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/card_border.xml -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- State when selected (light gold border) -->
+    <!-- Selected state with gold border -->
     <item android:state_selected="true">
         <shape android:shape="rectangle">
-            <solid android:color="@android:color/transparent" /> <!-- Transparent inside -->
-            <stroke android:width="2dp" android:color="@color/lightGold" /> <!-- Light Gold border -->
-            <corners android:radius="8dp"/> <!-- Corner radius to match CardView -->
+            <solid android:color="@color/core_dark_grey"/> <!-- Inside grey background -->
+            <stroke android:width="4dp" android:color="@color/Gold"/> <!-- Gold border when selected -->
+            <corners android:radius="16dp"/> <!-- Matching the CardView's corner radius -->
         </shape>
     </item>
 
-    <!-- Default state (no border) -->
+    <!-- Default state with light grey border -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@android:color/transparent" /> <!-- Transparent inside -->
-            <stroke android:width="2dp" android:color="@android:color/transparent" /> <!-- No border by default -->
-            <corners android:radius="8dp"/> <!-- Corner radius to match CardView -->
+            <solid android:color="@color/core_dark_grey"/> <!-- Inside grey background -->
+            <stroke android:width="4dp" android:color="@color/lightGrey"/> <!-- Light grey border when unselected -->
+            <corners android:radius="16dp"/> <!-- Matching the CardView's corner radius -->
         </shape>
     </item>
 </selector>

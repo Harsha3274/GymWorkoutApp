@@ -36,7 +36,6 @@ class WorkoutListFragment : Fragment() {
 
         val adapter = WorkoutsAdapter(requireContext(), workoutList)
         recyclerView.adapter = adapter
-
         return view
     }
 
