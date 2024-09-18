@@ -19,6 +19,7 @@
             android:id="@+id/equipmentImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
+
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/dumbell" />
@@ -28,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/manrope_medium"
             android:textSize="16sp"
             android:textColor="@color/lightWhite"
             android:layout_marginTop="8dp"
