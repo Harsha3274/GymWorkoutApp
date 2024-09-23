@@ -24,7 +24,6 @@ class WorkoutsList : AppCompatActivity() {
 
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-        val userProfile = findViewById<ImageView>(R.id.userProfile)
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
 
         // Set up the bottom navigation using NavigationUtils
@@ -44,10 +43,6 @@ class WorkoutsList : AppCompatActivity() {
         // Setup ViewPager with TabLayout
         setupViewPagerAndTabs(viewPager, tabLayout)
 
-        // Add logout functionality when user clicks the profile image
-        userProfile.setOnClickListener {
-            logoutUser()
-        }
     }
 
     // Function to add margins between tabs in TabLayout
@@ -78,16 +73,6 @@ class WorkoutsList : AppCompatActivity() {
                 else -> "Unknown"
             }
         }.attach()
-    }
-
-    // Function to logout user and redirect to login activity
-    private fun logoutUser() {
-        FirebaseAuth.getInstance().signOut() // Logout the user
-
-        // Redirect to login activity and clear task
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
     }
 
     override fun onResume() {

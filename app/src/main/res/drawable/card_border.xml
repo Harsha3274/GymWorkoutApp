@@ -4,7 +4,7 @@
     <item android:state_selected="true">
         <shape android:shape="rectangle">
             <solid android:color="@color/core_dark_grey"/> <!-- Inside grey background -->
-            <stroke android:width="4dp" android:color="@color/Gold"/> <!-- Gold border when selected -->
+            <stroke android:width="4dp" android:color="@color/green"/> <!-- green border when selected -->
             <corners android:radius="30dp"/> <!-- Matching the CardView's corner radius -->
         </shape>
     </item>

@@ -94,7 +94,7 @@
         android:layout_gravity="center"
         android:visibility="gone"
         android:indeterminate="true"
-    android:indeterminateTint="@color/Gold"
+    android:indeterminateTint="@color/green"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"

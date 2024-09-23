@@ -47,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
             // Enable or disable the next button based on equipment selection
             nextButton.isEnabled = selectedEquipment.isNotEmpty()
             nextButton.setBackgroundColor(
-                if (selectedEquipment.isNotEmpty()) ContextCompat.getColor(this, R.color.Gold)
+                if (selectedEquipment.isNotEmpty()) ContextCompat.getColor(this, R.color.green)
                 else Color.TRANSPARENT
             )
         }) {
@@ -63,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
         // Handle the next button click
         nextButton.setOnClickListener {
             val selectedEquipment = equipmentAdapter.getSelectedItems()
-            saveSelectedEquipmentToPreferences(selectedEquipment)  // <-- Add this line
+            saveSelectedEquipmentToPreferences(selectedEquipment)
 
             // Go to the WorkoutsList activity
             val intent = Intent(this, WorkoutsList::class.java)
