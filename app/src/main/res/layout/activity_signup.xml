@@ -64,6 +64,8 @@
                 android:id="@+id/signupProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/Gold"
                 android:layout_gravity="center"
                 android:visibility="gone" />
 
@@ -85,14 +87,16 @@
                 android:fontFamily="@font/manrope_regular"
                 android:text="Username"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/usernameETSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edit_text_background"
+                android:background="@drawable/edit_text_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:drawableStart="@drawable/person"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/manrope_medium"
@@ -100,7 +104,7 @@
                 android:inputType="text"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <!-- Age -->
             <TextView
@@ -111,14 +115,16 @@
                 android:fontFamily="@font/manrope_regular"
                 android:text="Age"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/ageETSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edit_text_background"
+                android:background="@drawable/edit_text_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:drawableStart="@drawable/age"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/manrope_medium"
@@ -126,7 +132,7 @@
                 android:inputType="numberSigned"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <!-- Gender -->
             <TextView
@@ -137,14 +143,16 @@
                 android:fontFamily="@font/manrope_regular"
                 android:text="Gender"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/genderETSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edit_text_background"
+                android:background="@drawable/edit_text_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:drawableStart="@drawable/gender"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/manrope_medium"
@@ -152,9 +160,8 @@
                 android:inputType="text"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
-            <!-- Apartment Name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -162,20 +169,24 @@
                 android:fontFamily="@font/manrope_regular"
                 android:text="Apartment Name"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/apartmentNameETSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edit_text_background"
+                android:background="@drawable/edit_text_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:drawableStart="@drawable/apartment"
+                android:drawablePadding="10dp"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Apartment Name"
                 android:inputType="text"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <!-- Flat Number -->
             <TextView
@@ -185,20 +196,24 @@
                 android:fontFamily="@font/manrope_regular"
                 android:text="Flat Number"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/flatNumberETSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edit_text_background"
+                android:background="@drawable/edit_text_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:drawableStart="@drawable/flat"
+                android:drawablePadding="10dp"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Flat Number"
                 android:inputType="numberSigned"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <!-- Email Address -->
             <TextView
@@ -209,14 +224,16 @@
                 android:fontFamily="@font/manrope_regular"
                 android:text="Email Address"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/emailETSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edit_text_background"
+                android:background="@drawable/edit_text_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:drawableStart="@drawable/email"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/manrope_medium"
@@ -224,7 +241,7 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <!-- Password -->
             <TextView
@@ -234,22 +251,25 @@
                 android:fontFamily="@font/manrope_regular"
                 android:text="Password"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/passwordETSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edit_text_background"
+                android:background="@drawable/edit_text_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:drawableStart="@drawable/lock"
+                android:drawableEnd="@drawable/closed_eye"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <!-- Confirm Password -->
             <TextView
@@ -259,22 +279,25 @@
                 android:fontFamily="@font/manrope_regular"
                 android:text="Confirm Password"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/ConfirmPasswordETSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edit_text_background"
+                android:background="@drawable/edit_text_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:drawableStart="@drawable/lock"
+                android:drawableEnd="@drawable/closed_eye"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightWhite"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -297,7 +320,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:padding="14dp"
+            android:padding="10dp"
             android:layout_marginTop="10dp">
 
             <!-- Google Signup -->
@@ -306,8 +329,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/google"
-                android:layout_marginStart="120dp"
-                android:layout_marginEnd="80dp" />
+                android:layout_marginStart="80dp"
+                android:layout_marginEnd="60dp" />
 
             <!-- Apple Signup -->
             <ImageView
@@ -333,7 +356,7 @@
                 android:fontFamily="@font/manrope_medium"
                 android:text="Already have an account?"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -345,7 +368,7 @@
                 android:fontFamily="@font/manrope_medium"
                 android:text="Log In"
                 android:textColor="@color/Gold"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 

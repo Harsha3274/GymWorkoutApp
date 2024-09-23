@@ -35,9 +35,11 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/Gold"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -55,10 +57,10 @@
     <Button
         android:id="@+id/nextButton"
         android:layout_width="340dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginBottom="18dp"
         android:enabled="false"
-        android:fontFamily="@font/worksans"
+        android:fontFamily="@font/manrope_medium"
         android:text="Continue ->"
         android:textSize="16sp"
         android:textColor="@color/white"

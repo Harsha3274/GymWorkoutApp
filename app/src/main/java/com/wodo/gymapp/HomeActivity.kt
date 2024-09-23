@@ -39,15 +39,22 @@ class HomeActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
-        // Initialize adapter with an empty list
-        equipmentAdapter = EquipmentAdapter(emptyList()) { selectedEquipment ->
+        // Show the progress bar while loading data
+        progressBar.visibility = ProgressBar.VISIBLE
+
+        // Initialize adapter with an empty list and image load callback
+        equipmentAdapter = EquipmentAdapter(emptyList(), { selectedEquipment ->
             // Enable or disable the next button based on equipment selection
             nextButton.isEnabled = selectedEquipment.isNotEmpty()
             nextButton.setBackgroundColor(
                 if (selectedEquipment.isNotEmpty()) ContextCompat.getColor(this, R.color.Gold)
                 else Color.TRANSPARENT
             )
+        }) {
+            // Callback when all images are loaded
+            progressBar.visibility = ProgressBar.GONE
         }
+
         recyclerView.adapter = equipmentAdapter
 
         // Fetch equipment from Firestore
@@ -56,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
         // Handle the next button click
         nextButton.setOnClickListener {
             val selectedEquipment = equipmentAdapter.getSelectedItems()
-            saveSelectedEquipmentToPreferences(selectedEquipment)
+            saveSelectedEquipmentToPreferences(selectedEquipment)  // <-- Add this line
 
             // Go to the WorkoutsList activity
             val intent = Intent(this, WorkoutsList::class.java)
@@ -67,21 +74,6 @@ class HomeActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        Log.d("HomeActivity", "onResume called")
-
-        // Load selected equipment from SharedPreferences
-        val selectedEquipmentNames = sharedPreferences.getStringSet("selectedEquipmentNames", emptySet())
-        Log.d("HomeActivity", "Selected equipment: $selectedEquipmentNames")
-
-        if (selectedEquipmentNames != null && selectedEquipmentNames.isNotEmpty()) {
-            // Update RecyclerView with selected equipment if available
-            equipmentAdapter.updateSelectedEquipmentByName(selectedEquipmentNames)
         }
     }
 
@@ -101,7 +93,6 @@ class HomeActivity : AppCompatActivity() {
 
     // Fetch equipment list from Firestore
     private fun fetchEquipmentFromFirestore() {
-        progressBar.visibility = ProgressBar.VISIBLE
         firestore.collection("gymEquipment")
             .get()
             .addOnSuccessListener { result ->
@@ -111,19 +102,19 @@ class HomeActivity : AppCompatActivity() {
                     val imageUrl = document.getString("imageUrl") ?: ""
                     equipmentList.add(Equipment(name, imageUrl))
                 }
+
+                // Update adapter with the fetched equipment list
                 equipmentAdapter.updateEquipmentList(equipmentList)
 
-                // After loading data from Firestore, check for previously selected equipment
+                // Load selected equipment from preferences if available
                 val selectedEquipmentNames = sharedPreferences.getStringSet("selectedEquipmentNames", emptySet())
                 if (selectedEquipmentNames != null && selectedEquipmentNames.isNotEmpty()) {
                     equipmentAdapter.updateSelectedEquipmentByName(selectedEquipmentNames)
                 }
-
-                progressBar.visibility = ProgressBar.GONE
             }
             .addOnFailureListener { exception ->
                 Log.w("HomeActivity", "Error getting documents: ", exception)
-                progressBar.visibility = ProgressBar.GONE
+                progressBar.visibility = ProgressBar.GONE  // Hide on failure
             }
     }
 }

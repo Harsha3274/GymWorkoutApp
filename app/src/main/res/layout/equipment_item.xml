@@ -5,7 +5,7 @@
     android:layout_margin="8dp"
     card_view:cardCornerRadius="16dp"
     card_view:cardElevation="4dp"
-    card_view:cardBackgroundColor="@android:color/transparent"> <!-- Set transparent background to handle custom drawable -->
+    card_view:cardBackgroundColor="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:padding="8dp"
         android:gravity="center"
-        android:background="@drawable/card_border"> <!-- Set card_border drawable here -->
+        android:background="@drawable/card_border">
 
         <ImageView
             android:id="@+id/equipmentImage"

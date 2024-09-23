@@ -10,27 +10,38 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imageView"
+            <FrameLayout
+                android:id="@+id/frame"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:src="@drawable/thumbnail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+
+            <VideoView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="220dp" />
+
+            </FrameLayout>
 
             <ImageView
                 android:id="@+id/backButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/back_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,11 +50,12 @@
                 android:id="@+id/pauseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginBottom="12dp"
                 android:src="@drawable/workout_button"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@id/frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/backButton" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -57,20 +69,20 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@id/frame" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
-                android:fontFamily="@font/manrope_medium"
                 android:background="@drawable/description_background"
+                android:fontFamily="@font/manrope_medium"
                 android:text="Beginner"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@id/frame" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -79,19 +91,20 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/manrope_medium"
-                android:text="12 mins "
+                android:text="12 mins"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintTop_toBottomOf="@id/textView9" />
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="28dp"
                 android:src="@drawable/dot"
-                app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintStart_toEndOf="@id/textView10"
+                app:layout_constraintTop_toBottomOf="@id/textView9" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -102,23 +115,92 @@
                 android:fontFamily="@font/manrope_medium"
                 android:text="123 cal"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintStart_toEndOf="@id/imageView4"
+                app:layout_constraintTop_toBottomOf="@id/textView9" />
+
+<!--            Should use recycler view for wokrout description-->
 
             <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView11_part1"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/description_background"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/manrope_medium"
-                android:text="Stand with your feet shoulder-width apart, toes \npointing forward.\n1. Raise your heels slowly, keeping your knees \n extended (but not locked).\n2. Pause for one second when you're standing as \nmuch on the tips of your toes as you can.
-\n3. Lower your heels back to the ground, returning \nto the starting position."
+                android:text="Stand with your feet shoulder-width apart, toes pointing forward."
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                app:layout_constraintTop_toTopOf="@id/imageView4" />
+
+            <View
+                android:id="@+id/horizontal_line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/lightWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView11_part1" />
+
+            <TextView
+                android:id="@+id/textView11_part2"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_medium"
+                android:text="Step 1\nRaise your heels slowly, keeping your knees extended (but not locked)."
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_line1" />
+
+            <View
+                android:id="@+id/horizontal_line2"
+                android:layout_width="360dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/lightWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView11_part2" />
+
+            <TextView
+                android:id="@+id/textView11_part3"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_medium"
+                android:text="Step 2\nPause for one second when you're standing as much on the tips of your toes as you can."
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_line2" />
+
+            <View
+                android:id="@+id/horizontal_line3"
+                android:layout_width="360dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/lightWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView11_part3" />
+
+            <TextView
+                android:id="@+id/textView11_part4"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_medium"
+                android:text="Step 3\nLower your heels back to the ground, returning to the starting position."
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_line3" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -131,8 +213,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
+                app:layout_constraintTop_toBottomOf="@id/textView11_part4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

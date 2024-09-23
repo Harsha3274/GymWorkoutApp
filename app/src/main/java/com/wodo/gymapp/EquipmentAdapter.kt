@@ -13,10 +13,12 @@ import com.wodo.gymapp.model.Equipment
 
 class EquipmentAdapter(
     var equipmentList: List<Equipment>,
-    private val onSelectionChanged: (List<Equipment>) -> Unit
+    private val onSelectionChanged: (List<Equipment>) -> Unit,
+    private val onImageLoaded: () -> Unit // Callback for when images are loaded
 ) : RecyclerView.Adapter<EquipmentAdapter.EquipmentViewHolder>() {
 
     private val selectedItems = mutableSetOf<Equipment>()
+    private var loadedImageCount = 0  // Keep track of loaded images
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EquipmentViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.equipment_item, parent, false)
@@ -52,7 +54,23 @@ class EquipmentAdapter(
 
         fun bind(equipment: Equipment) {
             equipmentName.text = equipment.name
-            Picasso.get().load(equipment.imageUrl).into(equipmentImage)
+
+            // Load image with Picasso and use callback to track when the image is loaded
+            Picasso.get().load(equipment.imageUrl).into(equipmentImage, object : com.squareup.picasso.Callback {
+                override fun onSuccess() {
+                    // Increment loaded image count
+                    loadedImageCount++
+
+                    // Once all images are loaded, trigger the callback to hide the ProgressBar
+                    if (loadedImageCount == equipmentList.size) {
+                        onImageLoaded()
+                    }
+                }
+
+                override fun onError(e: Exception?) {
+                    // Handle error if needed
+                }
+            })
 
             updateSelectionState(equipment)
 

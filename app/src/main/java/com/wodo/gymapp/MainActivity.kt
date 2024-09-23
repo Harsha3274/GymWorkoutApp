@@ -19,10 +19,12 @@ class MainActivity : AppCompatActivity() {
         val splashProgressBar = findViewById<ProgressBar>(R.id.splashProgressBar)
         val forwardButton = findViewById<ImageView>(R.id.forwardButton)
 
+        // Initially hide the ProgressBar
         splashProgressBar.visibility = View.GONE
 
         // Set onClickListener for the forward button
         forwardButton.setOnClickListener {
+            // Show ProgressBar only when the forward button is clicked (i.e., simulating delay)
             splashProgressBar.visibility = View.VISIBLE
 
             // Simulate a delay (e.g., loading time) before navigating to the next activity
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
                 // Hide ProgressBar after transition
                 splashProgressBar.visibility = View.GONE
-            }, 1000)
+            }, 1000) // Delay of 1 second for the progress simulation
         }
     }
 }

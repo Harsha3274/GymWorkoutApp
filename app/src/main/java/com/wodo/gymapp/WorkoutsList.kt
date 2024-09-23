@@ -36,7 +36,7 @@ class WorkoutsList : AppCompatActivity() {
 
         // Display the username in the TextView
         val userGreetingTextView = findViewById<TextView>(R.id.userGreeting)
-        userGreetingTextView.text = "Hi, $username"
+        userGreetingTextView.text = "Hi,\n$username"
 
         // Add margin between tabs
         addMarginsToTabs(tabLayout)
@@ -57,7 +57,7 @@ class WorkoutsList : AppCompatActivity() {
             for (i in 0 until tabLayout.tabCount) {
                 val tab = (tabLayout.getChildAt(0) as ViewGroup).getChildAt(i) as LinearLayout
                 val layoutParams = tab.layoutParams as ViewGroup.MarginLayoutParams
-                layoutParams.setMargins(50, 20, 58, 0) // Add margins
+                layoutParams.setMargins(50, 20, 28, 0) // Add margins
                 tab.layoutParams = layoutParams
                 tab.requestLayout()
             }
