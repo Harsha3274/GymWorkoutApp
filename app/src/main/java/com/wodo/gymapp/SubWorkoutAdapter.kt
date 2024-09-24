@@ -25,9 +25,7 @@ class SubWorkoutAdapter(
         holder.subWorkoutName.text = subWorkout.name
         holder.subWorkoutImage.setImageResource(subWorkout.imageResId)
 
-        // Set click listener for each sub workout item
         holder.itemView.setOnClickListener {
-            // Navigate to WorkoutDetailActivity when a sub workout is clicked
             val intent = Intent(context, WorkoutDetailActivity::class.java)
             intent.putExtra("WORKOUT_NAME", subWorkout.name)
             intent.putExtra("WORKOUT_IMAGE", subWorkout.imageResId)
@@ -39,7 +37,6 @@ class SubWorkoutAdapter(
         return subWorkoutList.size
     }
 
-    // ViewHolder for sub-workout items
     class SubWorkoutViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val subWorkoutName: TextView = itemView.findViewById(R.id.subExerciseName)
         val subWorkoutImage: ImageView = itemView.findViewById(R.id.subExerciseImage)

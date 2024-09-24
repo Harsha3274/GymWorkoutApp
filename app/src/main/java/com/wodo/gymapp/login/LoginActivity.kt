@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private lateinit var firebaseAuth: FirebaseAuth
-    private var isPasswordVisible = false  // Track password visibility state
+    private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // Set up Google Sign-In launcher
         googleSignInLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -63,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
             handleResult(task)
         }
 
-        // Set click listener for Google Sign-In button
         binding.googleImageView.setOnClickListener {
             Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show()
             signInGoogle()
@@ -80,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
                 editor.putString("username", username)
                 editor.apply()
 
-                // Toast message and navigate to HomeActivity
                 Toast.makeText(this, "Login Successful, Welcome $username", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
@@ -175,7 +172,6 @@ class LoginActivity : AppCompatActivity() {
                 editor.putString("username", username)
                 editor.apply()
 
-                // Navigate to HomeActivity
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()

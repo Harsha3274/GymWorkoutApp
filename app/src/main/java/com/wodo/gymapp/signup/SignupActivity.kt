@@ -44,7 +44,6 @@ class SignupActivity : AppCompatActivity() {
             }
         })
 
-        // Set onClick listener for login text
         binding.LoginText.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
