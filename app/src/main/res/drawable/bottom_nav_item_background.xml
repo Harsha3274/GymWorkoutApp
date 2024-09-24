@@ -1,0 +1,7 @@
+<!-- res/drawable/bottom_nav_item_background.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background for selected item -->
+    <item android:state_checked="true" android:drawable="@color/Gold" />
+    <!-- Background for unselected item -->
+    <item android:drawable="@android:color/transparent" />
+</selector>
