@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Image for workout -->
         <ImageView
             android:id="@+id/exerciseImage"
             android:layout_width="80dp"
@@ -25,7 +24,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Workout Name -->
         <TextView
             android:id="@+id/exerciseName"
             android:layout_width="0dp"
@@ -40,7 +38,6 @@
             app:layout_constraintStart_toEndOf="@id/exerciseImage"
             app:layout_constraintEnd_toStartOf="@+id/exerciseIcon" />
 
-        <!-- Sub-Workout Count -->
         <TextView
             android:id="@+id/exerciseCount"
             android:layout_width="0dp"
@@ -53,7 +50,6 @@
             app:layout_constraintStart_toEndOf="@id/exerciseImage"
             app:layout_constraintEnd_toStartOf="@id/exerciseIcon" />
 
-        <!-- Dropdown Icon -->
         <ImageView
             android:id="@+id/exerciseIcon"
             android:layout_width="wrap_content"
