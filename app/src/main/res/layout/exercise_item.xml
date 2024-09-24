@@ -17,7 +17,7 @@
         <!-- Image for workout -->
         <ImageView
             android:id="@+id/exerciseImage"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
             android:src="@drawable/dumbell"
@@ -25,29 +25,44 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- Workout Name -->
         <TextView
             android:id="@+id/exerciseName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/manrope_medium"
             android:text="Workout Name"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/exerciseImage"
             app:layout_constraintEnd_toStartOf="@+id/exerciseIcon" />
 
+        <!-- Sub-Workout Count -->
+        <TextView
+            android:id="@+id/exerciseCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="3 Workouts"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/exerciseName"
+            app:layout_constraintStart_toEndOf="@id/exerciseImage"
+            app:layout_constraintEnd_toStartOf="@id/exerciseIcon" />
+
+        <!-- Dropdown Icon -->
         <ImageView
             android:id="@+id/exerciseIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:src="@drawable/forward_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,5 +74,3 @@
         android:visibility="gone" />
 
 </androidx.cardview.widget.CardView>
-
-
