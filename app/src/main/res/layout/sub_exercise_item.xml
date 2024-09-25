@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="16dp"
-    android:padding="8dp"
+    android:layout_margin="14dp"
+    android:padding="5dp"
     android:background="@drawable/sub_item_border">
 
     <ImageView
@@ -25,7 +25,7 @@
         android:fontFamily="@font/manrope_medium"
         android:text="Sub Workout Name"
         android:textColor="@android:color/white"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@id/subExerciseImage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/subExerciseArrow" />
@@ -45,14 +45,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="10 min"
             android:textColor="@android:color/white"
-            android:textSize="12sp" />
+            android:textSize="8sp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:src="@drawable/dot"/>
@@ -61,9 +62,10 @@
             android:id="@+id/caloriesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:text="200 kcal"
             android:textColor="@android:color/white"
-            android:textSize="12sp" />
+            android:textSize="8sp" />
 
     </LinearLayout>
 

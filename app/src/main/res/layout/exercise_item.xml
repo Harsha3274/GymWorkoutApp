@@ -33,7 +33,7 @@
             android:fontFamily="@font/manrope_medium"
             android:text="Workout Name"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/exerciseImage"
             app:layout_constraintEnd_toStartOf="@+id/exerciseIcon" />
@@ -43,9 +43,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/manrope_medium"
             android:text="3 Workouts"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:textSize="10sp"
             app:layout_constraintTop_toBottomOf="@id/exerciseName"
             app:layout_constraintStart_toEndOf="@id/exerciseImage"
             app:layout_constraintEnd_toStartOf="@id/exerciseIcon" />
