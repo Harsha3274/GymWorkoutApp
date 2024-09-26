@@ -1,0 +1,89 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/workoutCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:backgroundTint="@color/core_dark_grey"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/workoutImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dumbbell_fly"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/workoutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/manrope_medium"
+            android:text="Workout Title"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/workoutImage"
+            app:layout_constraintTop_toTopOf="@id/workoutImage" />
+
+        <LinearLayout
+            android:id="@+id/minutesAndCaloriesLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toEndOf="@id/workoutImage"
+            app:layout_constraintTop_toBottomOf="@id/workoutTitle"
+            app:layout_constraintEnd_toStartOf="@id/subExerciseArrow">
+
+            <TextView
+                android:id="@+id/minutesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/manrope_medium"
+                android:text="10 min"
+                android:textColor="@android:color/white"
+                android:textSize="8sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/dot"/>
+
+            <TextView
+                android:id="@+id/caloriesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_medium"
+                android:text="200 kcal"
+                android:textColor="@android:color/white"
+                android:textSize="8sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/subExerciseArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sub_forward_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

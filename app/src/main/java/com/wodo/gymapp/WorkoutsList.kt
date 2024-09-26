@@ -1,20 +1,15 @@
 package com.wodo.gymapp
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.auth.FirebaseAuth
-import com.wodo.gymapp.login.LoginActivity
 import com.wodo.gymapp.utils.NavigationUtils
 
 class WorkoutsList : AppCompatActivity() {

@@ -25,10 +25,16 @@ class SubWorkoutAdapter(
         holder.subWorkoutName.text = subWorkout.name
         holder.subWorkoutImage.setImageResource(subWorkout.imageResId)
 
+        // Remaining sub-workouts excluding the clicked one
+        val remainingSubWorkouts = ArrayList(subWorkoutList).apply {
+            removeAt(position)
+        }
+
         holder.itemView.setOnClickListener {
             val intent = Intent(context, WorkoutDetailActivity::class.java)
             intent.putExtra("WORKOUT_NAME", subWorkout.name)
             intent.putExtra("WORKOUT_IMAGE", subWorkout.imageResId)
+            intent.putParcelableArrayListExtra("REMAINING_WORKOUTS", remainingSubWorkouts)
             context.startActivity(intent)
         }
     }

@@ -1,6 +1,7 @@
 package com.wodo.gymapp
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ class WorkoutsAdapter(
     private val workoutList: List<Workout>
 ) : RecyclerView.Adapter<WorkoutsAdapter.WorkoutViewHolder>() {
 
-    private val expandedPositions = mutableMapOf<Int, Boolean>()
+    private val expandedPositions = mutableMapOf<Int, Boolean>() // Store expanded positions
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.exercise_item, parent, false)
@@ -28,25 +29,29 @@ class WorkoutsAdapter(
         holder.workoutName.text = workout.name
         holder.workoutImage.setImageResource(workout.imageResId)
 
+        // Sample sub-workout list, ideally this data should come from your model or backend
         val subWorkoutList = listOf(
             Workout("Push up", R.drawable.pushups),
             Workout("Bench press", R.drawable.benchpress),
             Workout("Dumbbell fly", R.drawable.dumbbell_fly),
-            Workout("Deadlifts",R.drawable.deadlifts),
-            Workout("Bicep curls",R.drawable.bicep_curls)
+            Workout("Deadlifts", R.drawable.deadlifts),
+            Workout("Bicep curls", R.drawable.bicep_curls)
         )
 
         val subWorkoutCount = subWorkoutList.size
         holder.workoutCount.text = "$subWorkoutCount Workouts"
 
+        // Toggle dropdown visibility
         val isExpanded = expandedPositions[position] == true
         holder.dropdownRecyclerView.visibility = if (isExpanded) View.VISIBLE else View.GONE
         holder.exerciseIcon.setImageResource(if (isExpanded) R.drawable.up_icon else R.drawable.forward_icon)
 
+        // Setup sub-workout RecyclerView
         val subAdapter = SubWorkoutAdapter(context, subWorkoutList)
         holder.dropdownRecyclerView.layoutManager = LinearLayoutManager(context)
         holder.dropdownRecyclerView.adapter = subAdapter
 
+        // Handle workout card click (expand/collapse)
         holder.workoutCard.setOnClickListener {
             val currentlyExpanded = expandedPositions[position] ?: false
             expandedPositions[position] = !currentlyExpanded
