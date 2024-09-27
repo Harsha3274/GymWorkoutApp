@@ -4,7 +4,7 @@
     android:id="@+id/workoutCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_margin="8dp"
     android:backgroundTint="@color/core_dark_grey"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">

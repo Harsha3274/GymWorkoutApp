@@ -1,7 +1,7 @@
 package com.wodo.gymapp.login
 
-import com.wodo.gymapp.HomeActivity
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.InputType
 import android.view.MotionEvent
@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.Observer
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -22,6 +23,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.wodo.gymapp.HomeActivity
 import com.wodo.gymapp.R
 import com.wodo.gymapp.databinding.ActivityLoginBinding
 import com.wodo.gymapp.signup.SignupActivity
@@ -34,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
-    private lateinit var firebaseAuth: FirebaseAuth
     private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,13 +48,13 @@ class LoginActivity : AppCompatActivity() {
 
         FirebaseApp.initializeApp(this)
 
+        // Google Sign-In setup
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-        firebaseAuth = FirebaseAuth.getInstance()
 
         googleSignInLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -71,13 +72,6 @@ class LoginActivity : AppCompatActivity() {
         viewModel.userLiveData.observe(this, Observer { user ->
             if (user != null) {
                 val username = user.username  // Assuming 'user' has a 'username' field
-
-                // Save the username in SharedPreferences
-                val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-                editor.putString("username", username)
-                editor.apply()
-
                 Toast.makeText(this, "Login Successful, Welcome $username", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
@@ -116,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
             // Login user
             viewModel.loginUser(email, password, onSuccess = {
                 binding.loginProgressBar.visibility = View.GONE  // Hide progress bar
-                // Success logic will be handled by the LiveData observer
+                // Success logic handled by LiveData observer
             }, onFailure = { exception ->
                 binding.loginProgressBar.visibility = View.GONE  // Hide progress bar
                 Toast.makeText(this, "Login Failed: ${exception.message}", Toast.LENGTH_SHORT).show()
@@ -127,65 +121,89 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
+
+        // Detect keyboard visibility
+        detectKeyboardVisibility()
     }
 
     private fun togglePasswordVisibility() {
         if (isPasswordVisible) {
-            // Hide password
             binding.passwordEditTextLogin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            binding.passwordEditTextLogin.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email, 0, R.drawable.closed_eye, 0)
+            binding.passwordEditTextLogin.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.closed_eye, 0)
         } else {
-            // Show password
             binding.passwordEditTextLogin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            binding.passwordEditTextLogin.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email, 0, R.drawable.open_eye, 0)
+            binding.passwordEditTextLogin.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.open_eye, 0)
         }
         isPasswordVisible = !isPasswordVisible
-        // Move the cursor to the end of the text
-        binding.passwordEditTextLogin.setSelection(binding.passwordEditTextLogin.text.length)
+        binding.passwordEditTextLogin.setSelection(binding.passwordEditTextLogin.text.length)  // Move cursor to end
     }
 
     private fun signInGoogle() {
-        val signInIntent: Intent = googleSignInClient.signInIntent
+        val signInIntent = googleSignInClient.signInIntent
         googleSignInLauncher.launch(signInIntent)
     }
 
-    private fun handleResult(completedTask: Task<GoogleSignInAccount>) {
+    private fun handleResult(task: Task<GoogleSignInAccount>) {
         try {
-            val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
+            val account = task.getResult(ApiException::class.java)
             if (account != null) {
-                updateUI(account)
+                firebaseAuthWithGoogle(account)
             }
         } catch (e: ApiException) {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun updateUI(account: GoogleSignInAccount) {
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
+        auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val username = account.displayName ?: "No Name"
-
-                // Save username to SharedPreferences
-                val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-                editor.putString("username", username)
-                editor.apply()
-
+                Toast.makeText(this, "Google sign-in successful", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-            startActivity(Intent(this, HomeActivity::class.java))
-            finish()
+    private fun detectKeyboardVisibility() {
+        val rootLayout = binding.loginButtonLayout
+        rootLayout.viewTreeObserver.addOnGlobalLayoutListener {
+            val rect = Rect()
+            rootLayout.getWindowVisibleDisplayFrame(rect)
+            val screenHeight = rootLayout.rootView.height
+            val keypadHeight = screenHeight - rect.bottom
+
+            if (keypadHeight > screenHeight * 0.15) {
+                adjustLoginButtonPosition(isKeyboardVisible = true)
+            } else {
+                adjustLoginButtonPosition(isKeyboardVisible = false)
+            }
         }
+    }
+
+    private fun adjustLoginButtonPosition(isKeyboardVisible: Boolean) {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(binding.loginButtonLayout)
+
+        if (isKeyboardVisible) {
+            // Move login button above the keyboard (adjust bottom margin)
+            constraintSet.clear(R.id.loginButton, ConstraintSet.TOP)
+            constraintSet.connect(
+                R.id.loginButton, ConstraintSet.BOTTOM,
+                ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 200  // Adjust margin as needed
+            )
+        } else {
+            // Reset login button to its original position below password field
+            constraintSet.clear(R.id.loginButton, ConstraintSet.BOTTOM)
+            constraintSet.connect(
+                R.id.loginButton, ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID, ConstraintSet.TOP, 50  // Adjust based on original margin
+            )
+        }
+
+        constraintSet.applyTo(binding.loginButtonLayout)
     }
 }
